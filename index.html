@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Academic Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Your Name</h1>
+            <p>Your Title/Position<br>
+            Your Institution<br>
+            Email: your.email@domain.edu</p>
+        </header>
+
+        <nav>
+            <a href="index.html">Home</a> |
+            <a href="research.html">Research</a> |
+            <a href="publications.html">Publications</a> |
+            <a href="cv.html">CV</a>
+        </nav>
+
+        <main>
+            <h2>About</h2>
+            <p>Write your bio and research interests here.</p>
+
+            <h2>News</h2>
+            <ul>
+                <li><strong>Date:</strong> Your news item here</li>
+                <li><strong>Date:</strong> Another update</li>
+            </ul>
+
+            <h2>Projects</h2>
+            <p>Description of your main projects or software.</p>
+        </main>
+
+        <footer>
+            <p>Last updated: <span id="lastModified"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('lastModified').textContent = document.lastModified;
+    </script>
+</body>
+</html>
