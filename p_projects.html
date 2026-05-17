@@ -1,142 +1,199 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<HTML>
-<HEAD>
-<TITLE>Personal Projects</TITLE>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Personal Projects — Aiden Kolodziej</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 20px auto;
-  max-width: 1000px;
-}
-.gallery img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    background: #fafafa;
+    color: #222;
+  }
+  h1 { text-align: center; margin-bottom: 30px; font-weight: 300; }
+  .back-link {
+    display: block; text-align: center; margin-bottom: 30px;
+    color: #555; text-decoration: none;
+  }
+  .back-link:hover { color: #000; }
+
+  /* Grid of project covers */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .tile {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    background: #eee;
+    border-radius: 6px;
+  }
+  .tile img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .tile:hover img { transform: scale(1.05); }
+  .tile .label {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.45);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4em;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    text-align: center;
+    padding: 10px;
+  }
+  .tile:hover .label { opacity: 1; }
+
+  /* Lightbox overlay */
+  .lightbox {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 1000;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 90vw; max-height: 85vh;
+    object-fit: contain;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+  }
+  .lb-btn {
+    position: absolute;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    border: none;
+    font-size: 2em;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  .lb-btn:hover { background: rgba(255,255,255,0.25); }
+  .lb-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
+  .lb-close { top: 20px; right: 20px; font-size: 1.5em; }
+  .lb-title {
+    position: absolute; top: 20px; left: 20px;
+    color: #fff; font-size: 1.1em;
+    text-transform: capitalize;
+    letter-spacing: 0.05em;
+  }
+  .lb-counter {
+    position: absolute; bottom: 20px; left: 50%;
+    transform: translateX(-50%);
+    color: #fff; font-size: 0.95em;
+    background: rgba(0,0,0,0.4);
+    padding: 6px 14px; border-radius: 20px;
+  }
 </style>
-</HEAD>
-<BODY>
-<HR>
-<H2>Personal Projects</H2>
+</head>
+<body>
 
+<a href="index.html" class="back-link">← back</a>
+<h1>Personal Projects</h1>
 
-<HR>
-<H3>Chimera Bikes</H3>
-<P>
-Permuting bikes into new forms. 
-</P>
-<div class="gallery">
-<img src="projects/personal/bikes/ARK_long_bike_harvard.png" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_1521.jpeg" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_1531.jpeg" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_1533.jpeg" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_1750.png" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_2202.png" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_2774.png" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_6884.png" alt="bikes" loading="lazy">
-<img src="projects/personal/bikes/IMG_7001.png" alt="bikes" loading="lazy">
-</div>
-  
-<HR>
+<div class="grid" id="grid"></div>
 
-<H3>Woodworking</H3>
-
-<H4>Frame Building</H4>
-<P>
-Frames I made for various artworks I own. Getting artwork framed is very expensive; however, doing it yourself is pretty cheap & easy and you get the nice satifaction of framing your own art!
-</P>
-<div class="gallery">
-<img src="projects/personal/woodworking/frames/IMG_1092.png" alt="Frame building" loading="lazy">
-<img src="projects/personal/woodworking/frames/IMG_1412.png" alt="Frame building" loading="lazy">
-<img src="projects/personal/woodworking/frames/IMG_2043.png" alt="Frame building" loading="lazy">
-<img src="projects/personal/woodworking/frames/IMG_2085.png" alt="Frame building" loading="lazy">
-<img src="projects/personal/woodworking/frames/IMG_2201.png" alt="Frame building" loading="lazy">
-<img src="projects/personal/woodworking/frames/IMG_2255.png" alt="Frame building" loading="lazy">
-
+<div class="lightbox" id="lightbox">
+  <div class="lb-title" id="lbTitle"></div>
+  <button class="lb-btn lb-close" id="lbClose">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev">‹</button>
+  <img id="lbImage" src="" alt="">
+  <button class="lb-btn lb-next" id="lbNext">›</button>
+  <div class="lb-counter" id="lbCounter"></div>
 </div>
 
-<H4>Coffee Table Restoration</H4>
-<P>
-During the yearly mass move-out around Boston in September, I found this lovely coffee table which only needed some resurfacing to look brand new. 
-</P>
-<div class="gallery">
-<img src="projects/personal/woodworking/coffee_table/IMG_1997.png" alt="Coffee table restoration" loading="lazy">
-<img src="projects/personal/woodworking/coffee_table/IMG_2211.png" alt="Coffee table restoration" loading="lazy">
-<img src="projects/personal/woodworking/coffee_table/IMG_2219.png" alt="Coffee table restoration" loading="lazy">
-</div>
+<script>
+  // --- Edit BASE if your "personal" folder is somewhere else ---
+  const BASE = "personal";
 
-<H4>Paper Tray</H4>
-<P>
-A hand carved dovetail paper tray for my desk. 
-</P>
-<div class="gallery">
-<img src="projects/personal/woodworking/paper_tray/IMG_9565.png" alt="Paper tray" loading="lazy">
-<img src="projects/personal/woodworking/paper_tray/IMG_9570.png" alt="Paper tray" loading="lazy">
-<img src="projects/personal/woodworking/paper_tray/IMG_9577.png" alt="Paper tray" loading="lazy">
-</div>
+  // Project data: dir name -> [images]. Cover is first image.
+  const projects = [
+    { name: "bikes",            cover: "ARK_long_bike_harvard.jpg",
+      images: ["ARK_long_bike_harvard.jpg","IMG_1521.jpeg","IMG_1531.jpeg","IMG_1533.jpeg",
+               "IMG_1750.jpg","IMG_2202.jpg","IMG_2774.jpg","IMG_6884.jpg","IMG_7001.jpeg","IMG_7001.jpg"] },
+    { name: "frames",           cover: "IMG_3962.jpeg",
+      images: ["IMG_3962.jpeg","IMG_1092.jpg","IMG_1162.jpeg","IMG_1412.jpg","IMG_2043.jpg",
+               "IMG_2085.jpg","IMG_2201.jpg","IMG_2255.jpg","IMG_2380.jpeg","IMG_2841.jpeg",
+               "IMG_3476.jpeg","IMG_3479.jpeg","IMG_3980.jpeg","IMG_3981.jpeg","IMG_8931.jpeg"] },
+    { name: "coffee_table",     cover: "IMG_2211.jpg",
+      images: ["IMG_2211.jpg","IMG_1997.jpg","IMG_2219.jpg"] },
+    { name: "coffee_tray",      cover: "IMG_4821.jpeg",
+      images: ["IMG_4821.jpeg"] },
+    { name: "coffee_sack_mats", cover: "IMG_6705.jpg",
+      images: ["IMG_6705.jpg","74451550449__29DF6CB8-7042-4114-BB90-B4CB0FDBF4FC.jpg",
+               "IMG_1417.jpg","IMG_2257.jpg","IMG_6779.jpg"] },
+    { name: "deck_furniture",   cover: "IMG_4612.jpeg",
+      images: ["IMG_4612.jpeg","IMG_2138.jpg","IMG_2175.jpg","IMG_4613.jpeg"] },
+    { name: "bench",            cover: "IMG_1916.jpg",
+      images: ["IMG_1916.jpg","IMG_1387.jpg","IMG_1421.jpg"] },
+    { name: "marble_making",    cover: "IMG_1725.jpg",
+      images: ["IMG_1725.jpg","57020284-1BA2-4C76-A447-A71EB658430C.jpg",
+               "AA270F52-0D7B-4DAA-8CD1-DF2D09B69F92.jpg",
+               "ACFEC4C2-4545-42EC-AFEE-F02D891C69B8.jpg",
+               "B52111E3-7C5B-440D-80F2-5487A0D2ECC7.jpg"] },
+    { name: "metal_working",    cover: "IMG_8220.jpeg",
+      images: ["IMG_8220.jpeg","IMG_6896.jpg","IMG_6897.jpg","IMG_6906.jpg","IMG_8236.jpeg"] },
+    { name: "paper_tray",       cover: "IMG_9565.jpg",
+      images: ["IMG_9565.jpg","IMG_9570.jpg","IMG_9577.jpg"] },
+    { name: "projection_art",   cover: "IMG_4723.jpeg",
+      images: ["IMG_4723.jpeg","IMG_3714.jpeg","IMG_4726.jpeg","IMG_9046.jpeg"] },
+    { name: "3D printing",      cover: "IMG_3977.jpeg",
+      images: ["IMG_3977.jpeg","IMG_1432.jpg","IMG_1433.jpg"] },
+    { name: "peach_pits",       cover: "IMG_8066.jpeg",
+      images: ["IMG_8066.jpeg"] },
+  ];
 
-<H4>Coffee Sack Mats</H4>
-<P>
-A local coffee shop gives out their coffee sacks for free and lightly used yoga mats are easy to find for $2-$5 at local thrift stores. These make for nice mats to use in the kitchen, living room, or as doormats.
-</P>
-<div class="gallery">
-<img src="projects/personal/woodworking/coffee_sack_mats/IMG_1417.png" alt="Coffee sack mat" loading="lazy">
-<img src="projects/personal/woodworking/coffee_sack_mats/IMG_2257.png" alt="Coffee sack mat" loading="lazy">
-<img src="projects/personal/woodworking/coffee_sack_mats/IMG_6705.png" alt="Coffee sack mat" loading="lazy">
-<img src="projects/personal/woodworking/coffee_sack_mats/IMG_6779.png" alt="Coffee sack mat" loading="lazy">
-</div>
+  function pretty(name) {
+    return name.replace(/_/g, " ");
+  }
+  function pathFor(project, file) {
+    return `$${BASE}/$${encodeURIComponent(project)}/${encodeURIComponent(file)}`;
+  }
 
-<HR>
-<H3>3D Printing</H3>
-<P>
-A macaron eraser holder
-</P>
-<div class="gallery">
-<img src="projects/personal/3D printing/IMG_1432.png" alt="3D printing project" loading="lazy">
-<img src="projects/personal/3D printing/IMG_1433.png" alt="3D printing project" loading="lazy">
+  // Build grid
+  const grid = document.getElementById("grid");
+  projects.forEach((p, i) => {
+    const tile = document.createElement("div");
+    tile.className = "tile";
+    tile.innerHTML = `
+      <img src="$${pathFor(p.name, p.cover)}" alt="$${pretty(p.name)}" loading="lazy">
+      <div class="label">${pretty(p.name)}</div>
+    `;
+    tile.addEventListener("click", () => openLightbox(i, 0));
+    grid.appendChild(tile);
+  });
 
-</div>
+  // Lightbox
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImage");
+  const lbTitle = document.getElementById("lbTitle");
+  const lbCounter = document.getElementById("lbCounter");
+  let curProject = 0, curIdx = 0;
 
-<HR>
-<H3>Marble Making</H3>
-<P>
-<p>In 2021 I went on a solo bike trip from Boston to Denver. Along the way, somewhere in a small town in Kentucky, I came across a local music festival with some vendors. One vendor was selling what looked like mushrooms encased in glass.</p>
-<p>After discovering that the MIT makerspace has glass flameworks, I experimented with recreating these mushrooms in glass marbles.</p>
-</P>
-<div class="gallery">
-<img src="projects/personal/marble_making/57020284-1BA2-4C76-A447-A71EB658430C.png" alt="Marble making" loading="lazy">
-<img src="projects/personal/marble_making/AA270F52-0D7B-4DAA-8CD1-DF2D09B69F92.png" alt="Marble making" loading="lazy">
-<img src="projects/personal/marble_making/ACFEC4C2-4545-42EC-AFEE-F02D891C69B8.png" alt="Marble making" loading="lazy">
-<img src="projects/personal/marble_making/B52111E3-7C5B-440D-80F2-5487A0D2ECC7.png" alt="Marble making" loading="lazy">
-<img src="projects/personal/marble_making/IMG_1725.png" alt="Marble making" loading="lazy">
-</div>
-
-<HR>
-<H3>Metal Origami</H3>
-<P>
-Using a CNC plasma cutter, I cut out this pattern from thin sheet metal which can be folded into a icosahedron
-</P>
-<div class="gallery">
-<img src="projects/personal/icosahedron/IMG_6896.png" alt="Metal origami" loading="lazy">
-<img src="projects/personal/icosahedron/IMG_6897.png" alt="Metal origami" loading="lazy">
-<img src="projects/personal/icosahedron/IMG_6906.png" alt="Metal origami" loading="lazy">
-</div>
-
-<HR>
-<H3>Bench</H3>
-<P>
-Welded bench, upholstered with some Australian Aboriginal patterned fabric I picked out at local fabric store</P>
-<div class="gallery">
-<img src="projects/personal/bench/IMG_1421.png" alt="Bench project" loading="lazy">
-<img src="projects/personal/bench/IMG_1916.png" alt="Bench project" loading="lazy">
-</div>
-
-<HR>
-<ADDRESS>
-Last updated: <script>document.write(new Date().toDateString());</script>
-</ADDRESS>
-<HR>
-</BODY>
-</HTML>
+  function openLightbox(p, i) {
+    curProject = p; curIdx = i;
+    showImage();
+    lb.classList.add("open");
+  }
+  function closeLightbox() { lb.classList.remove("open"); }
+  function showImage() {
+    const proj = projects[curProject];
+    lbImg.src = pathFor(proj.name, proj.images[curIdx]);
+    lbTitle.textContent = pretty(proj.name);
+    lbCounter.textContent = `$${curIdx + 1} / $${proj.
