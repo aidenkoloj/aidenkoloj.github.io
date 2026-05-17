@@ -104,11 +104,15 @@ h1 {
 }
 
 /* Thumbnail strip */
-.thumbnails {
+/* .thumbnails {
     display: flex;
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
+} */
+
+.thumbnails {
+    display: none;
 }
 
 .thumbnail {
