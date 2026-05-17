@@ -20,7 +20,7 @@ const thumbnailsContainer = document.getElementById('thumbnails');
 function init() {
     totalPagesSpan.textContent = zineImages.length;
     loadImage(0);
-    createThumbnails();
+    //createThumbnails(); no thumbnails
 }
 
 function loadImage(index) {
