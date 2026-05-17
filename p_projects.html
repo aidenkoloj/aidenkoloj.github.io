@@ -5,101 +5,41 @@
 <title>Personal Projects — Aiden Kolodziej</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-    margin: 0;
-    padding: 40px 20px;
-    background: #fafafa;
-    color: #222;
-  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+         margin: 0; padding: 40px 20px; background: #fafafa; color: #222; }
   h1 { text-align: center; margin-bottom: 30px; font-weight: 300; }
-  .back-link {
-    display: block; text-align: center; margin-bottom: 30px;
-    color: #555; text-decoration: none;
-  }
+  .back-link { display: block; text-align: center; margin-bottom: 30px; color: #555; text-decoration: none; }
   .back-link:hover { color: #000; }
 
-  /* Grid of project covers */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 18px;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .tile {
-    position: relative;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
-    cursor: pointer;
-    background: #eee;
-    border-radius: 6px;
-  }
-  .tile img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-  }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 18px; max-width: 1400px; margin: 0 auto; }
+  .tile { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer;
+          background: #eee; border-radius: 6px; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; display: block;
+              transition: transform 0.4s ease; }
   .tile:hover img { transform: scale(1.05); }
-  .tile .label {
-    position: absolute; inset: 0;
-    background: rgba(0,0,0,0.45);
-    color: #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.4em;
-    letter-spacing: 0.05em;
-    text-transform: capitalize;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    text-align: center;
-    padding: 10px;
-  }
+  .tile .label { position: absolute; inset: 0; background: rgba(0,0,0,0.45);
+                 color: #fff; display: flex; align-items: center; justify-content: center;
+                 font-size: 1.4em; letter-spacing: 0.05em; text-transform: capitalize;
+                 opacity: 0; transition: opacity 0.25s ease; text-align: center; padding: 10px; }
   .tile:hover .label { opacity: 1; }
 
-  /* Lightbox overlay */
-  .lightbox {
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.92);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 1000;
-  }
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+              display: none; align-items: center; justify-content: center; z-index: 1000; }
   .lightbox.open { display: flex; }
-  .lightbox img {
-    max-width: 90vw; max-height: 85vh;
-    object-fit: contain;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
-  }
-  .lb-btn {
-    position: absolute;
-    background: rgba(255,255,255,0.1);
-    color: #fff;
-    border: none;
-    font-size: 2em;
-    width: 56px; height: 56px;
-    border-radius: 50%;
-    cursor: pointer;
-    user-select: none;
-    transition: background 0.2s;
-  }
+  .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+  .lb-btn { position: absolute; background: rgba(255,255,255,0.1); color: #fff;
+            border: none; font-size: 2em; width: 56px; height: 56px; border-radius: 50%;
+            cursor: pointer; user-select: none; transition: background 0.2s; }
   .lb-btn:hover { background: rgba(255,255,255,0.25); }
   .lb-prev { left: 20px; top: 50%; transform: translateY(-50%); }
   .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
   .lb-close { top: 20px; right: 20px; font-size: 1.5em; }
-  .lb-title {
-    position: absolute; top: 20px; left: 20px;
-    color: #fff; font-size: 1.1em;
-    text-transform: capitalize;
-    letter-spacing: 0.05em;
-  }
-  .lb-counter {
-    position: absolute; bottom: 20px; left: 50%;
-    transform: translateX(-50%);
-    color: #fff; font-size: 0.95em;
-    background: rgba(0,0,0,0.4);
-    padding: 6px 14px; border-radius: 20px;
-  }
+  .lb-title { position: absolute; top: 20px; left: 20px; color: #fff;
+              font-size: 1.1em; text-transform: capitalize; letter-spacing: 0.05em; }
+  .lb-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+                color: #fff; font-size: 0.95em; background: rgba(0,0,0,0.4);
+                padding: 6px 14px; border-radius: 20px; }
 </style>
 </head>
 <body>
@@ -119,81 +59,88 @@
 </div>
 
 <script>
-  // --- Edit BASE if your "personal" folder is somewhere else ---
+  // *** EDIT THIS if your folder lives elsewhere in the repo ***
   const BASE = "personal";
 
-  // Project data: dir name -> [images]. Cover is first image.
   const projects = [
-    { name: "bikes",            cover: "ARK_long_bike_harvard.jpg",
+    { name: "bikes", cover: "ARK_long_bike_harvard.jpg",
       images: ["ARK_long_bike_harvard.jpg","IMG_1521.jpeg","IMG_1531.jpeg","IMG_1533.jpeg",
-               "IMG_1750.jpg","IMG_2202.jpg","IMG_2774.jpg","IMG_6884.jpg","IMG_7001.jpeg","IMG_7001.jpg"] },
-    { name: "frames",           cover: "IMG_3962.jpeg",
+               "IMG_1750.jpg","IMG_2202.jpg","IMG_2774.jpg","IMG_6884.jpg","IMG_7001.jpeg"] },
+    { name: "frames", cover: "IMG_3962.jpeg",
       images: ["IMG_3962.jpeg","IMG_1092.jpg","IMG_1162.jpeg","IMG_1412.jpg","IMG_2043.jpg",
                "IMG_2085.jpg","IMG_2201.jpg","IMG_2255.jpg","IMG_2380.jpeg","IMG_2841.jpeg",
                "IMG_3476.jpeg","IMG_3479.jpeg","IMG_3980.jpeg","IMG_3981.jpeg","IMG_8931.jpeg"] },
-    { name: "coffee_table",     cover: "IMG_2211.jpg",
+    { name: "coffee_table", cover: "IMG_2211.jpg",
       images: ["IMG_2211.jpg","IMG_1997.jpg","IMG_2219.jpg"] },
-    { name: "coffee_tray",      cover: "IMG_4821.jpeg",
+    { name: "coffee_tray", cover: "IMG_4821.jpeg",
       images: ["IMG_4821.jpeg"] },
     { name: "coffee_sack_mats", cover: "IMG_6705.jpg",
-      images: ["IMG_6705.jpg","74451550449__29DF6CB8-7042-4114-BB90-B4CB0FDBF4FC.jpg",
-               "IMG_1417.jpg","IMG_2257.jpg","IMG_6779.jpg"] },
-    { name: "deck_furniture",   cover: "IMG_4612.jpeg",
+      images: ["IMG_6705.jpg","IMG_1417.jpg","IMG_2257.jpg","IMG_6779.jpg",
+               "74451550449__29DF6CB8-7042-4114-BB90-B4CB0FDBF4FC.jpg"] },
+    { name: "deck_furniture", cover: "IMG_4612.jpeg",
       images: ["IMG_4612.jpeg","IMG_2138.jpg","IMG_2175.jpg","IMG_4613.jpeg"] },
-    { name: "bench",            cover: "IMG_1916.jpg",
+    { name: "bench", cover: "IMG_1916.jpg",
       images: ["IMG_1916.jpg","IMG_1387.jpg","IMG_1421.jpg"] },
-    { name: "marble_making",    cover: "IMG_1725.jpg",
+    { name: "marble_making", cover: "IMG_1725.jpg",
       images: ["IMG_1725.jpg","57020284-1BA2-4C76-A447-A71EB658430C.jpg",
                "AA270F52-0D7B-4DAA-8CD1-DF2D09B69F92.jpg",
                "ACFEC4C2-4545-42EC-AFEE-F02D891C69B8.jpg",
                "B52111E3-7C5B-440D-80F2-5487A0D2ECC7.jpg"] },
-    { name: "metal_working",    cover: "IMG_8220.jpeg",
+    { name: "metal_working", cover: "IMG_8220.jpeg",
       images: ["IMG_8220.jpeg","IMG_6896.jpg","IMG_6897.jpg","IMG_6906.jpg","IMG_8236.jpeg"] },
-    { name: "paper_tray",       cover: "IMG_9565.jpg",
+    { name: "paper_tray", cover: "IMG_9565.jpg",
       images: ["IMG_9565.jpg","IMG_9570.jpg","IMG_9577.jpg"] },
-    { name: "projection_art",   cover: "IMG_4723.jpeg",
+    { name: "projection_art", cover: "IMG_4723.jpeg",
       images: ["IMG_4723.jpeg","IMG_3714.jpeg","IMG_4726.jpeg","IMG_9046.jpeg"] },
-    { name: "3D printing",      cover: "IMG_3977.jpeg",
+    { name: "3D printing", cover: "IMG_3977.jpeg",
       images: ["IMG_3977.jpeg","IMG_1432.jpg","IMG_1433.jpg"] },
-    { name: "peach_pits",       cover: "IMG_8066.jpeg",
+    { name: "peach_pits", cover: "IMG_8066.jpeg",
       images: ["IMG_8066.jpeg"] },
   ];
 
-  function pretty(name) {
-    return name.replace(/_/g, " ");
-  }
-  function pathFor(project, file) {
-    return `$${BASE}/$${encodeURIComponent(project)}/${encodeURIComponent(file)}`;
-  }
+  const pretty = n => n.replace(/_/g, " ");
+  const pathFor = (proj, file) => `${BASE}/${encodeURIComponent(proj)}/${encodeURIComponent(file)}`;
 
-  // Build grid
   const grid = document.getElementById("grid");
   projects.forEach((p, i) => {
     const tile = document.createElement("div");
     tile.className = "tile";
     tile.innerHTML = `
-      <img src="$${pathFor(p.name, p.cover)}" alt="$${pretty(p.name)}" loading="lazy">
+      <img src="${pathFor(p.name, p.cover)}" alt="${pretty(p.name)}" loading="lazy"
+           onerror="this.style.background='#c33';this.alt='MISSING: ${pathFor(p.name, p.cover)}';console.error('Missing:', this.src);">
       <div class="label">${pretty(p.name)}</div>
     `;
     tile.addEventListener("click", () => openLightbox(i, 0));
     grid.appendChild(tile);
   });
 
-  // Lightbox
   const lb = document.getElementById("lightbox");
   const lbImg = document.getElementById("lbImage");
   const lbTitle = document.getElementById("lbTitle");
   const lbCounter = document.getElementById("lbCounter");
   let curProject = 0, curIdx = 0;
 
-  function openLightbox(p, i) {
-    curProject = p; curIdx = i;
-    showImage();
-    lb.classList.add("open");
-  }
+  function openLightbox(p, i) { curProject = p; curIdx = i; showImage(); lb.classList.add("open"); }
   function closeLightbox() { lb.classList.remove("open"); }
   function showImage() {
     const proj = projects[curProject];
     lbImg.src = pathFor(proj.name, proj.images[curIdx]);
     lbTitle.textContent = pretty(proj.name);
-    lbCounter.textContent = `$${curIdx + 1} / $${proj.
+    lbCounter.textContent = `${curIdx + 1} / ${proj.images.length}`;
+  }
+  function next() { const n = projects[curProject].images.length; curIdx = (curIdx + 1) % n; showImage(); }
+  function prev() { const n = projects[curProject].images.length; curIdx = (curIdx - 1 + n) % n; showImage(); }
+
+  document.getElementById("lbClose").addEventListener("click", closeLightbox);
+  document.getElementById("lbNext").addEventListener("click", next);
+  document.getElementById("lbPrev").addEventListener("click", prev);
+  lb.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") next();
+    if (e.key === "ArrowLeft") prev();
+  });
+</script>
+</body>
+</html>
