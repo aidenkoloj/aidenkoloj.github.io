@@ -40,6 +40,27 @@
   .lb-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
                 color: #fff; font-size: 0.95em; background: rgba(0,0,0,0.4);
                 padding: 6px 14px; border-radius: 20px; }
+  .lb-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw;
+  gap: 16px;
+}
+  .lb-content img {
+  max-width: 90vw;
+  max-height: 75vh;  /* slightly smaller to leave room for text */
+  object-fit: contain;
+}
+  .lb-statement {
+  color: #ddd;
+  font-size: 0.95em;
+  line-height: 1.5;
+  max-width: 600px;
+  text-align: center;
+  font-style: italic;
+  padding: 0 20px;
+}
 </style>
 </head>
 <body>
@@ -53,7 +74,10 @@
   <div class="lb-title" id="lbTitle"></div>
   <button class="lb-btn lb-close" id="lbClose">✕</button>
   <button class="lb-btn lb-prev" id="lbPrev">‹</button>
-  <img id="lbImage" src="" alt="">
+  <div class="lb-content">
+    <img id="lbImage" src="" alt="">
+    <div class="lb-statement" id="lbStatement"></div>
+  </div>
   <button class="lb-btn lb-next" id="lbNext">›</button>
   <div class="lb-counter" id="lbCounter"></div>
 </div>
@@ -64,6 +88,8 @@
 
   const projects = [
     { name: "Chimera Bikes", cover: "ARK_long_bike_harvard.jpg",
+      statement: "Inspired by the work of the Zenga Bros and others, I constructed a long bike, made of a Trail-a-bike frame and an adult bicycle frame, and a tall bike, built from a mountain bike and road bike frame.",
+
       images: ["ARK_long_bike_harvard.jpg","IMG_1521.jpeg","IMG_1531.jpeg","IMG_1533.jpeg",
                "IMG_1750.jpg","IMG_2202.jpg","IMG_2774.jpg","IMG_6884.jpg","IMG_7001.jpeg"] },
     { name: "Framing", cover: "IMG_1412.jpg",
@@ -127,7 +153,8 @@
     lbImg.src = pathFor(proj.name, proj.images[curIdx]);
     lbTitle.textContent = pretty(proj.name);
     lbCounter.textContent = `${curIdx + 1} / ${proj.images.length}`;
-  }
+    document.getElementById("lbStatement").textContent = proj.statement || "";
+}
   function next() { const n = projects[curProject].images.length; curIdx = (curIdx + 1) % n; showImage(); }
   function prev() { const n = projects[curProject].images.length; curIdx = (curIdx - 1 + n) % n; showImage(); }
 
