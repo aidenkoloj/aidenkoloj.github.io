@@ -114,6 +114,9 @@ h1 {
 .thumbnails {
     display: none;
 }
+.thumbnail {
+    display: none;
+}
 
 .thumbnail {
     width: 80px;
