@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Big Sur — Pacific Coast Tour</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --off-white:   #EAE8E2;
+      --ink:         #1C2926;
+      --teal:        #6B8F82;
+      --sand:        #C4A96B;
+      --redwood:     #8B6B4A;
+      --rule:        #C8C4BB;
+      --text-muted:  #5A6360;
+    }
+
+    html {
+      font-size: 18px;
+      background-color: var(--off-white);
+      color: var(--ink);
+    }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.85;
+      min-height: 100vh;
+    }
+
+    /* ── Page wrapper ── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 2rem 8rem;
+    }
+
+    /* ── Journal header ── */
+    .journal-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .journal-header::before {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--rule);
+    }
+
+    .journal-meta {
+      font-family: 'Lora', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--teal);
+      white-space: nowrap;
+    }
+
+    /* ── Title block ── */
+    .title-block {
+      margin-bottom: 2.8rem;
+      border-left: 3px solid var(--teal);
+      padding-left: 1.4rem;
+    }
+
+    .essay-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .essay-subtitle {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--teal);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 3rem;
+      height: 2px;
+      background: var(--sand);
+      margin: 2.5rem 0;
+    }
+
+    /* ── Body text ── */
+    p {
+      margin-bottom: 1.6em;
+      font-size: 1rem;
+      color: var(--ink);
+    }
+
+    /* ── Dropcap on first paragraph ── */
+    .essay-body > p:first-child::first-letter {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 4.6rem;
+      font-weight: 700;
+      color: var(--teal);
+      float: left;
+      line-height: 0.78;
+      margin-right: 0.1em;
+      margin-top: 0.08em;
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      margin: 2.4rem -1.5rem;
+      padding: 1.4rem 2rem 1.4rem 1.8rem;
+      border-left: 3px solid var(--sand);
+      background: transparent;
+    }
+
+    .pull-quote p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 1.18rem;
+      color: var(--redwood);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Scene break ── */
+    .scene-break {
+      text-align: center;
+      margin: 2.2rem 0;
+      color: var(--teal);
+      font-size: 0.85rem;
+      letter-spacing: 0.5em;
+    }
+
+    /* ── Photos ── */
+    figure {
+      margin: 2.6rem 0;
+    }
+
+    .photo-full {
+      margin-left: -2rem;
+      margin-right: -2rem;
+    }
+
+    .photo-full img,
+    .photo-inline img {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .photo-inline img {
+      box-shadow: 0 1px 3px rgba(28, 41, 38, 0.12);
+    }
+
+    figcaption {
+      font-family: 'Lora', serif;
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.7rem;
+      padding: 0 0.1rem;
+      line-height: 1.5;
+    }
+
+    .photo-full figcaption {
+      padding: 0 2rem;
+    }
+
+    /* ── Portrait triptych ── */
+    .triptych {
+      margin: 2.8rem -1.5rem;
+    }
+
+    .triptych-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+
+    .triptych-grid img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      object-position: center bottom;
+      display: block;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(28, 41, 38, 0.12);
+    }
+
+    .triptych figcaption {
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    /* ── Closing image (final beat of the essay) ── */
+    .closing-image {
+      margin: 3rem -2rem 0;
+    }
+
+    .closing-image img {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+    }
+
+    .closing-image figcaption {
+      text-align: center;
+      padding: 1rem 2rem 0;
+      font-size: 0.85rem;
+    }
+
+    /* ── Footer ── */
+    .essay-footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-mark {
+      width: 28px;
+      height: 2px;
+      background: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .footer-text {
+      font-family: 'Lora', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      html { font-size: 17px; }
+      .page { padding: 2.5rem 1.25rem 5rem; }
+      .essay-title { font-size: 2rem; }
+      .pull-quote { margin: 2rem 0; }
+      .photo-full { margin-left: -1.25rem; margin-right: -1.25rem; }
+      .photo-full figcaption { padding: 0 1.25rem; }
+      .triptych { margin-left: -1.25rem; margin-right: -1.25rem; }
+      .triptych-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+      .triptych-grid img { aspect-ratio: 4 / 3; }
+      .closing-image { margin: 2.5rem -1.25rem 0; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="journal-header">
+      <span class="journal-meta">Pacific Coast Tour &nbsp;·&nbsp; Morro Bay, California</span>
+    </div>
+
+    <div class="title-block">
+      <h1 class="essay-title">Big Sur Taco Truck</h1>
+      <p class="essay-subtitle">Three days after Monterey</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <article class="essay-body">
+
+      <p>Three days had passed since John and I said goodbye in the Veteran's Memorial Park in Monterrey. In that time I'd passed through the last stretch of California redwoods, trekked across a HWY 1 closure resembling a bombed out hillside, inhaled the pungent scent and witnessed the cheerful sight of molting elephant seals, and bushwhacked to a secluded cliffside full of a trove of abalone shells. I had good reason to believe our goodbye was more of a "see you later." In the last three weeks our paths intertwined at the most opportune moments and just as the memory of our time together seemed distant, John rounded a corner or while resting on the side of the road lifted his head up from a book. And so it wasn't too surprising to see his bright yellow rainfly as I ended my day at Morro Bay. If anything surprised me, it was the absence of John at the picnic bench, nose stuffed inside another Dostoevsky novel.</p>
+
+      <p>After setting up my tent and bemoaning the placement of a sprawling golf course next to the state park, I headed to the bathrooms to shower. The showers in California State Parks are coin operated, not by quarters, but by special California State Park shower tokens. A dollar for two tokens yields four minutes of shower time. Several campgrounds previously I'd noticed each campground has its own shower tokens embossed with the state park name and a design such as a starfish or mountain lion. The effort, on behalf of the state to make such tokens, while neglecting to have public soap in the restrooms, baffles me. I hold a grudge against the California State Parks; in Oregon there is not only free showers and soap, but also USB charging ports available to hikers/bikers. Nevertheless, I am a collector and grateful that California employs numismatists in their state parks system. I put in two dollars: two tokens for the shower, one token as a souvenir, one in excess (four minutes was a long enough shower).</p>
+
+      <p>Despite the cold cement floor and prison-like appearance of the shower stall, the showerhead jets out steaming water at a pressure greatly exceeding expectations, so I can hardly complain. Taking a shower in such conditions requires executing a rehearsed and highly-calculated system of movements. First, a shower stall must be inspected to ensure there is no stagnant fecal matter or pools of liquid lying about, both of which should be strikingly apparent. Observing the showerhead and applying basic trigonometric principles, the dry areas of the stall are determined and one's dry towel, clothes, and shoes placed in this privileged location. Having secured my precious dry goods and with two shower tokens in hand, I gingerly walk barefoot and on my tiptoes to the showerhead. I insert a coin with an image of a peregrine falcon and I'm bombarded with a spray of hot water. The warmth envelopes me and the water blasts away all the crystalized sweat and dirt of the day. Overpowered by muscles relaxing, skin breathing anew, the mind ceases to register the passing time, the dreary surroundings, the harsh cement floor. In this bliss I am thoughtless, overwhelmed by physical sensations, until I wonder, is the machine broken, has it not been two minutes? It continues for some length of time and then suddenly shuts off. I lather myself up with soap for the second round. The next coin, a whale tail breaching the surface, goes in and I plunge into the warmth once more.</p>
+
+      <p>Sitting at the picnic bench, still drying off from the shower, John came pedaling down the campground road. We exchanged a hug and recount the last three days of our tour. We had parted ways due to a road closure on HWY 1. Unsure of the maneuverability around the closure, John opted to detour around the road closure. I'd heard of the spectacular views and beauty of Big Sur since I began my ride in Canada; I was determined to find a way through the closure. Losing out on this part of the coast was not in the cards.</p>
+
+      <div class="scene-break">· · ·</div>
+
+      <div class="pull-quote">
+        <p>Over the cliffside, turquoise water frothed at the shore. Forests of purple kelp swirled in the current. Clouds far out at sea formed a second horizon. What better place could there be to eat a taco?</p>
+      </div>
+
+      <p>Over a hundred miles from any town and at the closure to California's scenic HWY 1 sat a food truck, aptly named Big Sur Taco Truck. Unless there was another food truck on the other side of the road closure, it can be objectively stated that there was no food truck on the west coast with a better view. I arrived at the taco truck around noon.</p>
+
+      <p>The night previously I had stayed at Pfeiffer Big Sur State Park where I met few other cyclists. Entering the state park, I was greeted by a familiar yet unexpected sight; towering redwood groves, trees I thought I'd said my last goodbye in Leggett, CA. Other familiar faces appeared at the campsite. There was a Korean couple I passed frequently on the road ever since Half Moon Bay, just south of San Francisco. They rode mountain bikes, the man carrying the majority of their gear. They were quiet, but friendly when I exchanged brief greetings and musings about the weather or the road conditions of a given day. When I reached Pfeiffer they had set up camp and the woman was sitting at a picnic bench. I greeted the woman, who spoke little English, and she attempted to communicate something about the road. She said "Road," then not knowing the word "closure," took both her hands and waved them in a big "X". I said "Yes, the road is closed up ahead, are you trying to pass through as well?" A forceful nod indicated they were going for it too. Another cyclist, a tall German man named Christof, greeted me at the campground. He was out for a two day excursion and also hoped to make it past the closure. Next to my campsite was one other cyclist, a middle-aged man with yellowing teeth named Dan, from Yakima, Washington. Dan sat on his picnic bench watching videos on his tablet. His bike was a Mongoose mountain bike purchased from Walmart; but more on Dan later. It wasn't until the taco truck that I began to hear Dan's story.</p>
+
+      <p>I got on the road early and pedaled along at a fast clip, but took long pauses. Along one stretch of road, the distant barks of elephant seals, their calls distorted by the cliff face, beckoned me to stop. A bird with a large wingspan soared far below, a California condor perhaps, chased by a smaller bird. The seals continued their lullabies, sounds which, had Ariel Pink or John Maus been present, may have inspired the newest evolution of hypnagogic pop. Later on, small black logs with specks of white appeared in a cove: a family of sea otters floating effortlessly on the rolling waves. Soon large signs signaling the road closure popped up and existing signs with distances to nearby towns were covered up with black plastic. 1000 yards, 500 yards, 100 yards, then two large cement blocks, a giant "Road Closed To All Traffic" sign, and a bright red taco truck came into view.</p>
+
+      <p>I went up to the window of the taco truck and asked the young guy working the register for the lowdown on the road closure situation. Turns out five or six cyclists go through each day to get around the closure. All one needed to do was wait until five o'clock, as the guy explained: "See that truck over there?," he pointed to a white pickup truck with tool boxes fused to the sides, "once he's gone, you're good to go." The taco guys, a man and his son, had set up a small tent awning and some tables to provide shade. Five hours to eat tacos and stare at the Pacific, not a bad place to have to wait. I ordered two steak and one carnitas tacos. I was most pleasantly surprised when I was handed tacos made of moist handmade corn tortillas containing meat fillings and tomatillo salsa of exceptional quality. Here, the food truck at seemingly the end of the world, I found tacos better than any I had consumed in the last two years living in New York City.</p>
+
+      <p>A surprising number of people stopped by the road closure. Many would pull over by the taco truck and take photos with the ocean as the backdrop. Soon enough, Dan pulled up, then the Korean couple, then three Brits on road bikes. Dan expressed a great urge for a beer and recounted a story of trying to procure a chaser for a handle of Vodka he had at one campsite. Nobody he asked had a chaser. "Bullshit!" Dan exclaimed, "One them must've had some OJ or something in their RV." Time passed by and Dan spit some dip into an old pill bottle and bemoaned over not purchasing a six pack of beers thirty-something miles back. People continued to come and go from the taco truck. One man stopped with his RV and Dan, like bloodhound, sniffed out that this guy had booze before he stepped out of the vehicle. Dan talked to the guy, and through expressing his desire for a beer found out this guy had a lager sitting in a cooler. He joked about selling the beer to Dan for an outrageous price. As the guy left, he came out and handed Dan the beer for free. Dan sat there for the next ten minutes beaming, until of course, he finished the beer and could only think about procuring another.</p>
+
+      <p>Every five minutes or so another car would come by, stopping briefly to gawk at the closure as if there hadn't been signs for the last fifty-something miles, or parking to grab a taco. The truck was doing good business between construction workers and tourists. The constant flow of people helped pass the time. I spoke here and there with some of those who had stopped. One woman working for a California wildlife conservation non-profit stood with an antennae in the air trying to locate tagged condors. I mentioned how I may have seen one earlier, but my brief observation came across as dubious to the woman. The Korean woman offered me a taco and I graciously accepted. The woman's husband explained he was practicing his Spanish and accidentally ordered double the number of tacos he could eat. Dan, the three Brits who showed up, and I got on the subject of the route down the coast to Mexico. Dan mentioned how he wouldn't continue into Mexico, citing a story he heard about someone getting kidnapped, murdered, and then had their body parts dismembered and chopped up into a blender. One Brit remarked that Dan had been watching too much news, that the border towns, while dangerous, were fine to visit. Another Brit, a very tall and built up fellow who found this outrageous chuckled, "They're going to have to find a bigger blender for me!"</p>
+
+      <p>Listening in on the conversation kept me busy; I'd opened up Tortilla Flat by John Steinbeck hours earlier and had barely turned a page. I attempted to settle back into the book but then noticed Dan's bike. The rear rack was stacked up like a six layer cheesecake; clothes, jackets, a tent footprint, and miscellaneous gear in trash bags were held together with a network of bungees. The saddle was so worn down that the yellow foam filling of the seat was exposed and tinged with brown streaks. Dan had left two months ago from his hometown of Yakima, Washington. The impetus that set him on the road was not a love of biking so much as it was an obsession with the J-pop group Nogizaka-46. Dan informed me that, "for about a decade my life was consumed by Nogizaka-46, I have downloaded over two Terabytes of their music videos and live performances." Then one day Dan thought, "So Nogizaka-46 is from Japan, right? Well I started looking at Japan, and it's one giant stretch of coastline, I mean it's all coast. And well, I thought what am I doing here in this pretty much awful desert in Yakima when there's this whole coast I've never seen."</p>
+
+      <figure class="photo-inline">
+        <img src="images/dans_bike_seat.jpg" alt="Dan's worn bicycle saddle, yellow foam exposed, atop a rear rack stacked high with bungeed gear">
+        <figcaption>Dan's saddle, worn down to the foam — and the six-layer-cheesecake rack behind it.</figcaption>
+      </figure>
+
+      <div class="pull-quote">
+        <p>The side of the road across from the truck became a stage where new performers appeared. There was a great range of interactions each actor had with the environment.</p>
+      </div>
+
+      <figure class="triptych">
+        <div class="triptych-grid">
+          <img src="images/russions.jpg" alt="Two men in dark and white shirts standing at the cliff edge, looking out over the ocean">
+          <img src="images/brits.jpg" alt="Two cyclists in bright jerseys standing with arms crossed at the road's edge, gazing at the water">
+          <img src="images/koreans.jpg" alt="A couple standing side by side, hands clasped behind their backs, both facing the ocean">
+        </div>
+        <figcaption>The Russians, the Brits, the Korean couple — each pair facing the same horizon, differently.</figcaption>
+      </figure>
+
+      <p>Between conversations with Dan, the Brits, travelers at the taco stand, and consuming tacos, I preoccupied myself with taking portraits of people overlooking the ocean. Two Russian men, tourists who were outfitted with expensive clothes appropriate for a club or bar in LA, alternated taking selfies and making deliberate gestures to each other on how to capture the right angle. The Korean couple stood next to each other, their arms politely tucked behind their backs, their two heads gazing out in the same direction. Dan peered out over the ocean, his head slightly tilted down, his hands in his pockets, a kind of melancholia in the air. A couple from Switzerland came and asked about getting around the road closure; I explained the only way for them would be to go back fifty miles or so and get on the other major highway in California to detour around.</p>
+
+      <p>When five o'clock came, the white truck left its post and before we all took off, the taco guys got a shot of the whole group. A series of several more cement blocks and gates blocked the road every quarter mile, until we hit what was the real closure; a cliffside that had fallen down over a stretch of the road.</p>
+
+      <figure class="photo-full">
+        <img src="images/taco_truck.jpg" alt="A group of cyclists with loaded bikes lined up in front of the bright red Big Sur Taco Truck, hillside behind them">
+        <figcaption>The whole group, lined up at five o'clock, finally cleared to go.</figcaption>
+      </figure>
+
+      <p>Coarse gravel had been poured over it, allowing for heavy machinery to pass by. A steep hill of the gravel required pushing our loaded bikes slowly from behind, stopping frequently to position ourselves. Twenty minutes or so of intense struggling and we made it over the worst of it. One Brit sliced a tire along the way.</p>
+
+      <figure class="photo-full">
+        <img src="images/closure.jpg" alt="Two cyclists pushing a loaded bicycle up a steep gravel landslide above the ocean">
+        <figcaption>Pushing bikes up the gravel where the cliffside had given way.</figcaption>
+      </figure>
+
+      <div class="scene-break">· · ·</div>
+
+      <p>Just as we got back on the pavement, the Swiss couple I saw previously came down the road. They had gone over 300 miles around the closure. They stopped and offered me cookies and mio water flavoring. The next twenty miles there was open road. No worrying about any cars coming from behind. I descended to sea level and came upon a stretch of tall grasses leading to cliffs by the shore. A horse path cut across the grasses out to the cliffs. An undeniable urge to get to sea overcame me.</p>
+
+      <figure class="photo-full">
+        <img src="images/trail_to_sea.jpg" alt="A narrow dirt path cutting through tall golden grass toward the ocean horizon">
+        <figcaption>A horse path through the grasses, pulling toward the water.</figcaption>
+      </figure>
+
+      <p>I put down my bike on the side of the road and traversed through the grasses. The path became muddy and at some points completely submerged. I reached a small cliff, ten or fifteen feet above a small cove. I scrambled down the rocks and covering the beach were primarily oyster shells, with a few alien forms littered about. One of the strange objects was a bright orange coffee-cup sized form that had a leather-like texture; the shell of a chiton, a marine mollusk that attaches to rocks like a barnacle.</p>
+
+      <figure class="photo-inline">
+        <img src="images/nested_shells.jpg" alt="A tide-strewn jumble of iridescent mussel and oyster shells among beach rocks, with a piece of driftwood">
+        <figcaption>The cove floor — oyster and mussel shells catching the light between the rocks.</figcaption>
+      </figure>
+
+      <p>Within the oysters I spotted the pièce de résistance, an object I sought to find since I met Ilaula in Brookings, Oregon. An abalone shell, big enough to fit my whole hand in, lay in the pile of shells. This cove, which called to me from the road, contained the objects I was looking for. A search around revealed several other abalone shells, including one that was perfectly lodged inside the other.</p>
+
+      <figure class="closing-image">
+        <img src="images/nested_shells2.jpg" alt="A hand holding two abalone shells nested perfectly inside one another, iridescent mother-of-pearl catching the sunlight">
+        <figcaption>One abalone shell, perfectly lodged inside the other.</figcaption>
+      </figure>
+
+    </article>
+
+    <footer class="essay-footer">
+      <div class="footer-mark"></div>
+      <span class="footer-text">Pacific Coast Tour</span>
+    </footer>
+
+  </main>
+</body>
+</html>
