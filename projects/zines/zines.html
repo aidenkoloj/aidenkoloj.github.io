@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zines</title>
+    <link rel="stylesheet" href="css/zines.css">
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html" class="back-link">← Back</a>
+
+        <!-- Zine selection screen -->
+        <div class="selector-view" id="selectorView">
+            <h1>Zines</h1>
+
+            <div class="zine-select" id="zineSelect"></div>
+        </div>
+
+        <!-- Zine viewer screen -->
+        <div class="viewer-view" id="viewerView" hidden>
+            <a href="#" class="back-link back-to-select" id="backToSelect">← All zines</a>
+
+            <h1 id="zineTitle">Zine</h1>
+
+            <div class="zine-viewer">
+                <button class="nav-btn prev-btn" id="prevBtn">← Previous</button>
+
+                <div class="image-container">
+                    <img id="zineImage" src="" alt="Zine page" class="zine-image">
+                    <div class="page-counter">
+                        <span id="currentPage">1</span> / <span id="totalPages">6</span>
+                    </div>
+                </div>
+
+                <button class="nav-btn next-btn" id="nextBtn">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/zines.js"></script>
+</body>
+</html>
