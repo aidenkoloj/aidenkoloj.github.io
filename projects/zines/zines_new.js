@@ -31,7 +31,28 @@ const zines = [
             './ap4.png',
             './ap5.png'
         ]
+    },
+    {
+        title: 'Fluttering through Appalachia',
+        images: [
+            './bfly1.png',
+            './bfly2.png',
+            './bfly3.png',
+            './bfly4.png',
+            './bfly5.png'
+        ]
+    },
+    {
+        title: 'Genes',
+        images: [
+            './gene1.png',
+            './gene2.png',
+            './gene3.png',
+            './gene4.png',
+            './gene5.png'
+        ]
     }
+    
 ];
 
 let currentZine = null;
