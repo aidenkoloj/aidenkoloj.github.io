@@ -21,6 +21,16 @@ const zines = [
             './biketrip4.jpg',
             './biketrip5.jpg'
         ]
+    },
+    {
+        title: 'Bhāvanā',
+        images: [
+            './ap1.png',
+            './ap2.png',
+            './ap3.png',
+            './ap4.png',
+            './ap5.png'
+        ]
     }
 ];
 
