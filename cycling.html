@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cycling — Aiden Kolodziej</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+         margin: 0; padding: 40px 20px; background: #fafafa; color: #222; }
+  h1 { text-align: center; margin-bottom: 30px; font-weight: 300; }
+  .back-link { display: block; text-align: center; margin-bottom: 30px; color: #555; text-decoration: none; }
+  .back-link:hover { color: #000; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+          gap: 18px; max-width: 1400px; margin: 0 auto; }
+  .tile { position: relative; aspect-ratio: 1/1; overflow: hidden; cursor: pointer;
+          background: #eee; border-radius: 6px; }
+  .tile img { width: 100%; height: 100%; object-fit: cover; display: block;
+              transition: transform 0.4s ease; }
+  .tile:hover img { transform: scale(1.05); }
+  .tile .label { position: absolute; inset: 0; background: rgba(0,0,0,0.45);
+                 color: #fff; display: flex; align-items: center; justify-content: center;
+                 font-size: 1.4em; letter-spacing: 0.05em; text-transform: capitalize;
+                 opacity: 0; transition: opacity 0.25s ease; text-align: center; padding: 10px; }
+  .tile:hover .label { opacity: 1; }
+
+  .tile.placeholder { cursor: default; display: flex; align-items: center; justify-content: center;
+                       color: #fff; text-align: center; padding: 20px; }
+  .tile.placeholder .caption-name { font-size: 1.3em; letter-spacing: 0.03em; font-weight: 600; }
+  .tile.placeholder .caption-year { font-size: 0.95em; opacity: 0.85; margin-top: 0.3em; }
+  .tile.placeholder .caption-note { font-size: 0.8em; font-style: italic; opacity: 0.75; margin-top: 0.8em; }
+
+  .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+              display: none; align-items: center; justify-content: center; z-index: 1000; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 85vh; object-fit: contain; }
+  .lb-btn { position: absolute; background: rgba(255,255,255,0.1); color: #fff;
+            border: none; font-size: 2em; width: 56px; height: 56px; border-radius: 50%;
+            cursor: pointer; user-select: none; transition: background 0.2s; }
+  .lb-btn:hover { background: rgba(255,255,255,0.25); }
+  .lb-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 20px; top: 50%; transform: translateY(-50%); }
+  .lb-close { top: 20px; right: 20px; font-size: 1.5em; }
+  .lb-title { position: absolute; top: 20px; left: 20px; color: #fff;
+              font-size: 1.1em; text-transform: capitalize; letter-spacing: 0.05em; }
+  .lb-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+                color: #fff; font-size: 0.95em; background: rgba(0,0,0,0.4);
+                padding: 6px 14px; border-radius: 20px; }
+  .lb-content { display: flex; flex-direction: column; align-items: center; max-width: 90vw; gap: 16px; }
+  .lb-content img { max-width: 90vw; max-height: 75vh; object-fit: contain; }
+  .lb-statement { color: #ddd; font-size: 0.95em; line-height: 1.5; max-width: 600px;
+                  text-align: center; font-style: italic; padding: 0 20px; }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">← back</a>
+<h1>Cycling</h1>
+
+<div class="grid" id="grid"></div>
+
+<div class="lightbox" id="lightbox">
+  <div class="lb-title" id="lbTitle"></div>
+  <button class="lb-btn lb-close" id="lbClose">✕</button>
+  <button class="lb-btn lb-prev" id="lbPrev">‹</button>
+  <div class="lb-content">
+    <img id="lbImage" src="" alt="">
+    <div class="lb-statement" id="lbStatement"></div>
+  </div>
+  <button class="lb-btn lb-next" id="lbNext">›</button>
+  <div class="lb-counter" id="lbCounter"></div>
+</div>
+
+<script>
+  // *** EDIT THIS if your folder lives elsewhere in the repo ***
+  const BASE = "photos/cycling";
+
+  const trips = [
+    { name: "Boston to Denver", dir: "boston_denver", year: "2021", accent: "#8B6B4A",
+      statement: "", cover: null, images: [] },
+    { name: "Vancouver to Tijuana", dir: "vancouver_tijuana", year: "2023", accent: "#6B8F82",
+      statement: "", cover: null, images: [] },
+    { name: "Iceland Ring Road", dir: "iceland", year: "2024", accent: "#3E6C8E",
+      statement: "", cover: null, images: [] },
+  ];
+
+  const pathFor = (trip, file) => `${BASE}/${trip.dir}/${encodeURIComponent(file)}`;
+
+  const grid = document.getElementById("grid");
+  trips.forEach((trip, i) => {
+    const tile = document.createElement("div");
+    const hasPhotos = trip.images.length > 0;
+
+    if (hasPhotos) {
+      tile.className = "tile";
+      tile.innerHTML = `
+        <img src="${pathFor(trip, trip.cover || trip.images[0])}" alt="${trip.name}" loading="lazy"
+             onerror="this.style.background='#c33';this.alt='MISSING: ${pathFor(trip, trip.cover || trip.images[0])}';console.error('Missing:', this.src);">
+        <div class="label">${trip.name}</div>
+      `;
+      tile.addEventListener("click", () => openLightbox(i, 0));
+    } else {
+      tile.className = "tile placeholder";
+      tile.style.background = trip.accent;
+      tile.innerHTML = `
+        <div>
+          <div class="caption-name">${trip.name}</div>
+          <div class="caption-year">${trip.year}</div>
+          <div class="caption-note">Photos coming soon</div>
+        </div>
+      `;
+    }
+    grid.appendChild(tile);
+  });
+
+  const lb = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lbImage");
+  const lbTitle = document.getElementById("lbTitle");
+  const lbCounter = document.getElementById("lbCounter");
+  let curTrip = 0, curIdx = 0;
+
+  function openLightbox(t, i) { curTrip = t; curIdx = i; showImage(); lb.classList.add("open"); }
+  function closeLightbox() { lb.classList.remove("open"); }
+  function showImage() {
+    const trip = trips[curTrip];
+    lbImg.src = pathFor(trip, trip.images[curIdx]);
+    lbTitle.textContent = trip.name;
+    lbCounter.textContent = `${curIdx + 1} / ${trip.images.length}`;
+    document.getElementById("lbStatement").textContent = trip.statement || "";
+  }
+  function next() { const n = trips[curTrip].images.length; curIdx = (curIdx + 1) % n; showImage(); }
+  function prev() { const n = trips[curTrip].images.length; curIdx = (curIdx - 1 + n) % n; showImage(); }
+
+  document.getElementById("lbClose").addEventListener("click", closeLightbox);
+  document.getElementById("lbNext").addEventListener("click", next);
+  document.getElementById("lbPrev").addEventListener("click", prev);
+  lb.addEventListener("click", e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener("keydown", e => {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") next();
+    if (e.key === "ArrowLeft") prev();
+  });
+</script>
+</body>
+</html>
